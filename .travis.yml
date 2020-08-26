@@ -1,0 +1,30 @@
+language: cpp
+
+# Ubuntu Focal 20.04
+os: linux
+dist: focal
+
+env:
+  global:
+   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+   #   via the "travis encrypt" command using the project repo's public key
+   - secure: "kP5WWt6e9FYePb6X1/ZskRNgA16Pe85VkuAtJHPm2iK7KGipscw7ixYERNAETEFzpkeGSNNdqfIQIt58w+ntwX/4EiZiqVDhRhExcXp6sr1sKjA1eLLPHFCehng0HgR+BupjFTuaJtqWTfe86oOFhEMoG0jbmaZwgoLT71syuSWdWPEMizJpsPDW2s+jSaNHFOR+5ANXc4zNsqN7rk3a7DMvLuVOF4xpspltUTLObsGsDklMOTguWbRoFzWNesVhmxVxDaxA7rOyeqfBNaqsAMaqUhlEu4iQD9aPOLq3Ufyto/BgssXxcH+s+VFjDTdsJB7/5QbMvJwSznJO/5zSxOlZibVqw24Rx9tfrNMLLq4mzn91hEt3wT3A7zpABDvs9Ova1eRFzjZLfSGyWW4shaJFhZgLchNGbXvE4jF8nW3zgulPo/jK6wJYwD++EBEfiMG4NQprZk0JJmIsTqwBDQkbyQs1j+vDlGZ4rdhipzNWGAsLIO45A42ou6Dt1FINGmODGGAZUaKtFStWqG/kvl0znlwxQkEDJ+t7RCYccmoZQF0r+d2omtSUh6ZENz3hxFuEicrkAybdRyf95JuAL1CQL8e8TjfxM3grCVroSm9ev9gqlAC0iGExQsyTlD8LHAfvEzLwtfpSsuQSgofyFYGNnMM86CQOPKZJwTrmxrA="
+
+before_install:
+  - echo -n | openssl s_client -connect https://scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
+
+addons:
+  apt:
+    packages: [ninja-build]
+  coverity_scan:
+    project:
+      name: "clover2123/test_repo"
+      description: "Memory optimized JavaScript engine for mid-range devices."
+    build_command: "g++ main.cpp"
+    branch_pattern: master
+
+script:
+  - g++ main.cpp
+
+notifications:
+  email: false

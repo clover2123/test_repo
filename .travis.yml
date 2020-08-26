@@ -21,7 +21,7 @@ addons:
     project:
       name: "clover2123/test_repo"
       description: "Memory optimized JavaScript engine for mid-range devices."
-    #notification_email: hyukwoo.park@samsung.com
+    notification_email: hyukwoo.park@samsung.com
     build_command: "g++ main.cpp"
     branch_pattern: master
 

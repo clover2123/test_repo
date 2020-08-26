@@ -8,6 +8,7 @@ using namespace std;
 enum Sample {
     ONE,
     TWO,
+    THREE,
 };
 
 class Test {
